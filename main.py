@@ -25,9 +25,19 @@ random_gemstone = random.choice(gemstones)
 # Open the repository
 repo = Repo(repo_path)
 
-# Append the current date to README.md
-with open(readme_path, 'a') as readme_file:
-    readme_file.write(f'\nUpdate on {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
+# Read the README.md content and replace the last update line or append a new one
+update_line = f'Update on {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n'
+
+with open(readme_path, 'r') as readme_file:
+    lines = readme_file.readlines()
+
+if lines and lines[-1].startswith('Update on'):
+    lines[-1] = update_line
+else:
+    lines.append(update_line)
+
+with open(readme_path, 'w') as readme_file:
+    readme_file.writelines(lines)
 
 # Add README.md to the index
 repo.index.add([readme_path])
@@ -36,6 +46,13 @@ repo.index.add([readme_path])
 commit_message = f'{commit_prefix} {random_gemstone} {random_animal}'
 repo.index.commit(commit_message)
 
+# Check the current status
+print("Current Status:")
+print(repo.git.status())
+
 # Push the changes to the remote repository
-origin = repo.remote(name='origin')
-origin.push()
+try:
+    origin = repo.remote(name='origin')
+    origin.push()
+except Exception as e:
+    print(f"Error while pushing: {e}")
