@@ -4,8 +4,10 @@ import json
 import random
 from git import Repo
 
-# Load configuration
-with open('config.json') as config_file:
+config_path = '/home/rbouard/dev/ahahah/daily-commit-python/config.json'
+
+# Load Conf
+with open(config_path) as config_file:
     config = json.load(config_file)
 
 repo_path = config['repo_path']
@@ -13,10 +15,22 @@ readme_path = os.path.join(repo_path, config['readme_path'])
 commit_prefix = config['commit_prefix']
 
 # List of animals for the commit message
-animals = ["Lion", "Tiger", "Bear", "Fox", "Deer", "Wolf", "Monkey", "Zebra", "Elephant", "Giraffe", "Shark"]
+animals = [
+    "Lion", "Tiger", "Bear", "Fox", "Deer", "Wolf", "Monkey", "Zebra",
+    "Elephant", "Giraffe", "Shark", "Panther", "Lynx", "Hippopotamus",
+    "Rhinoceros", "Cheetah", "Leopard", "Crocodile", "Snake", "Eagle",
+    "Owl", "Penguin", "Hedgehog", "Turtle", "Dolphin", "Orca",
+    "Camel", "Llama", "Pony"
+]
 
 # List of gemstones for the commit message
-gemstones = ["Diamond", "Ruby", "Sapphire", "Emerald", "Opal", "Amethyst", "Topaz", "Garnet", "Jade", "Pearl"]
+gemstones = [
+    "Diamond", "Ruby", "Sapphire", "Emerald", "Opal", "Amethyst",
+    "Topaz", "Garnet", "Jade", "Pearl", "Turquoise", "Onyx",
+    "Citrine", "Quartz", "Peridot", "Alexandrite", "Obsidian",
+    "Lapis Lazuli", "Tanzanite", "Aquamarine", "Tourmaline",
+    "Malachite", "Chrysoprase", "Spinel"
+]
 
 # Generate a random animal name and gemstone
 random_animal = random.choice(animals)
