@@ -43,7 +43,7 @@ random_gemstone = random.choice(gemstones)
 repo = Repo(repo_path)
 
 # Read the README.md content and replace the last update line or append a new one
-update_line = f'Update on {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n'
+update_line = f'Updated on {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n'
 
 with open(readme_path, 'r') as readme_file:
     lines = readme_file.readlines()
