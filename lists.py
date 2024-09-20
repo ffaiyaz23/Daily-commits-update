@@ -1,3 +1,5 @@
+"""Module for lists of animals and gemstones."""
+
 animals = [
     "Lion", "Tiger", "Bear", "Fox", "Deer", "Wolf", "Monkey", "Zebra",
     "Elephant", "Giraffe", "Shark", "Panther", "Lynx", "Hippopotamus",

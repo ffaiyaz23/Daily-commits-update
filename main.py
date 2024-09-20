@@ -1,12 +1,13 @@
+"""Main module for automatic daily commits."""
+
 import json
 import os
-
 from commit import auto_commit
 
-config_path = '/home/rbouard/dev/ahahah/daily-commit-python/config.json'
+CONFIG_PATH = '/home/rbouard/dev/ahahah/daily-commit-python/config.json'
 
 # Load Conf
-with open(config_path) as config_file:
+with open(CONFIG_PATH, 'r', encoding='utf-8') as config_file:
     config = json.load(config_file)
 
 repo_path = config['repo_path']

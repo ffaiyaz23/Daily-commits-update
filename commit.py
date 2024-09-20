@@ -1,8 +1,12 @@
-from git import Repo
-from colorama import init, Fore, Style
+"""Module for automatic Git commits."""
+
 import datetime
 import random
-from lists import animals, gemstones
+
+from colorama import Fore, Style, init
+from git import Repo
+
+import lists
 
 # Initialize colorama
 init(autoreset=True)
@@ -33,12 +37,12 @@ def auto_commit(repo_path, readme_path, commit_prefix):
         commit_prefix (str): A prefix to use in the commit message.
     """
     # Print the current timestamp
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print_section("Timestamp", Fore.MAGENTA, timestamp, Style.RESET_ALL)
 
     # Generate a random animal name and gemstone
-    random_animal = random.choice(animals)
-    random_gemstone = random.choice(gemstones)
+    random_animal = random.choice(lists.animals)
+    random_gemstone = random.choice(lists.gemstones)
 
     # Open the repository
     repo = Repo(repo_path)
@@ -50,7 +54,7 @@ def auto_commit(repo_path, readme_path, commit_prefix):
     # Read the README.md content and replace the last update line or append a new one
     update_line = f'Updated on {timestamp}\n'
 
-    with open(readme_path, 'r') as readme_file:
+    with open(readme_path, 'r', encoding='utf-8') as readme_file:
         lines = readme_file.readlines()
 
     if lines and lines[-1].startswith('Updated on'):
@@ -58,7 +62,7 @@ def auto_commit(repo_path, readme_path, commit_prefix):
     else:
         lines.append(update_line)
 
-    with open(readme_path, 'w') as readme_file:
+    with open(readme_path, 'w', encoding='utf-8') as readme_file:
         readme_file.writelines(lines)
 
     # Add README.md to the index
@@ -79,8 +83,7 @@ def auto_commit(repo_path, readme_path, commit_prefix):
     try:
         origin = repo.remote(name='origin')
         origin.push()
-
         # Print push success
         print_section("Push Success", Fore.GREEN, "Push completed successfully.", Style.RESET_ALL)
-    except Exception as e:
+    except git.exc.GitCommandError as e:
         print_section("Error while pushing", Fore.RED, str(e), Style.RESET_ALL)
