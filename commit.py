@@ -1,10 +1,10 @@
 """Module for automatic Git commits."""
 
-import datetime
+from datetime import datetime
 import random
 
 from colorama import Fore, Style, init
-from git import Repo
+from git import Repo, exc
 
 import lists
 
@@ -85,5 +85,5 @@ def auto_commit(repo_path, readme_path, commit_prefix):
         origin.push()
         # Print push success
         print_section("Push Success", Fore.GREEN, "Push completed successfully.", Style.RESET_ALL)
-    except git.exc.GitCommandError as e:
+    except exc.GitCommandError as e:
         print_section("Error while pushing", Fore.RED, str(e), Style.RESET_ALL)
