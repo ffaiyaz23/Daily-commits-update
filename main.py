@@ -4,7 +4,7 @@ import json
 import os
 from commit import auto_commit
 
-CONFIG_PATH = '/home/rbouard/dev/ahahah/daily-commit-python/config.json'
+CONFIG_PATH = "config.json"
 
 # Load Conf
 with open(CONFIG_PATH, 'r', encoding='utf-8') as config_file:
